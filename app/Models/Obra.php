@@ -21,6 +21,6 @@ class Obra extends Model
     }
 
     public function Email(){
-        return $this->belongsToMany(Email::class, '');
+        return $this->belongsToMany(Email::class, 'obras_emails');
     }
 }
