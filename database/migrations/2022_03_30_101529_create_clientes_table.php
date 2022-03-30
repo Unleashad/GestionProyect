@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Rol;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,19 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('apellidos');
+            $table->string('cif', 9);
             $table->string('telefono', 9);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->boolean('activo')->default('true');
-            $table->rememberToken();
+            $table->string('direccion');
+            $table->string('localidad');
+            $table->string('provincia');
+            $table->string('codigo postal', 5);
             $table->timestamps();
-
-            $table->foreignIdFor(Rol::class)->references('id')->on('rols')->cascadeOnDelete();
         });
     }
 
@@ -37,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clientes');
     }
 };
