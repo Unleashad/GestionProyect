@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('maquinas', function (Blueprint $table) {
             $table->id();
             $table->string('matricula', 7);
-            $table->string('m3');
+            $table->string('tipo');
             $table->timestamps();
         });
     }
