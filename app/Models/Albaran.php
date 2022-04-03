@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Albaran extends Model
 {
     use HasFactory;
+
+    public function Servicio(){
+        return $this->belongsTo(Servicio::class);
+    }
 }
