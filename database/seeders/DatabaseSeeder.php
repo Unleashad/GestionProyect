@@ -27,6 +27,31 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        DB::table('maquinas')->insert([
+            [
+                'matricula'     => '2384FRF',
+                'tipo'          => '40M'
+            ]
+        ]);
+
+        DB::table('rols')->insert([
+            [
+                'rol' => 'A'
+            ]
+        ]);
+
+        DB::table('users')->insert([
+            [
+                'nombre'        => 'Alvaro',
+                'apellidos'     => 'González Delgado',
+                'telefono'      => '639266047',
+                'email'         => 'alvgonzadel@gmail.com',
+                'password'      => bcrypt('1234'),
+                'activo'        => true,
+                'rol_id'        => '1'
+            ]
+        ]);
+
         DB::table('emails')->insert([
             [
                 'correo_cliente'        => 'prueba@prueba.com',
@@ -42,17 +67,18 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        // DB::table('servicios')->insert([
-        //     [
-        //         'fecha'             => '2022-03-30',
-        //         'm3'                => '100',
-        //         'hora_ini'          => '18:09:01',
-        //         'hora_fin'          => '18:09:01',
-        //         'desplazamiento'    => '1',
-        //         'observaciones'     => 'hola',
-        //         ''
-        //         'cliente_id'        => '1'
-        //     ]
-        // ]);
+        DB::table('servicios')->insert([
+            [
+                'fecha'             => '2022-03-30',
+                'm3'                => '100',
+                'hora_ini'          => '18:09:01',
+                'hora_fin'          => '18:09:01',
+                'desplazamiento'    => '1',
+                'observaciones'     => 'hola',
+                'obra_id'           => '1',
+                'maquina_id'        => '1',
+                'user_id'           => '1'
+            ]
+        ]);
     }
 }
