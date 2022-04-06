@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('desplazamiento');/*¿?*/
             $table->string('m3');
             $table->text('observaciones');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
 
             $table->foreignIdFor(User::class)->references('id')->on('users')->cascadeOnDelete();

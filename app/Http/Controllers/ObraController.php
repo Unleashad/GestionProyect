@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
-use App\Models\Email;
 use App\Models\Obra;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ObraController extends Controller
 {
-    public function index($id){
+    public function getAll(){
+        $data = Obra::with('cliente')->get();
 
-        $data = Obra::with(['cliente', 'email'])->findOrFail(1);
+        return new JsonResponse($data);
+    }
+
+    public function getSpecific($id){
+
+        $data = Obra::with(['cliente', 'email', 'servicios.maquina', 'servicios.trabajador', 'servicios.albaran'])->findOrFail(1);
 
         return new JsonResponse($data);
     }

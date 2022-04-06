@@ -24,7 +24,7 @@ class Obra extends Model
         return $this->belongsToMany(Email::class, 'obras_emails');
     }
 
-    public function Servicio(){
+    public function Servicios(){
         return $this->hasMany(Servicio::class);
     }
 }
