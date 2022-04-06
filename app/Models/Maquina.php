@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maquina extends Model
 {
+    protected $hidden = array('created_at', 'updated_at');
+
     use HasFactory;
 
     public function Servicio(){
