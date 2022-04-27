@@ -37,6 +37,9 @@ class DatabaseSeeder extends Seeder
         DB::table('rols')->insert([
             [
                 'rol' => 'A'
+            ],
+            [
+                'rol' => 'T'
             ]
         ]);
 
