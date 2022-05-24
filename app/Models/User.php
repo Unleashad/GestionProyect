@@ -31,7 +31,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        "id",
         "email_verified_at", 
         "password", 
         "remember_token", 
@@ -54,7 +53,7 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
-    public function Servicio()
+    public function Servicios()
     {
         return $this->hasMany(Servicio::class);
     }

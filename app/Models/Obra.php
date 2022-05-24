@@ -10,7 +10,7 @@ class Obra extends Model
 {
     use HasFactory;
 
-    protected $hidden = array('cliente_id', 'created_at', 'updated_at');
+    protected $hidden = array('id', 'estado', 'cliente_id', 'created_at', 'updated_at');
 
     protected $fillable = [
 
@@ -24,7 +24,7 @@ class Obra extends Model
         return $this->belongsToMany(Email::class, 'obras_emails');
     }
 
-    public function Servicios(){
+    public function Servicio(){
         return $this->hasMany(Servicio::class);
     }
 }

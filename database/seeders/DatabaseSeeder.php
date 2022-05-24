@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                 'direccion'     => 'Calle Pruebas',
                 'localidad'     => 'FuengiPruebas',
                 'provincia'     => 'MalaPruebas',
-                'codigo postal' => '12345'
+                'codigoPostal' => '12345'
             ]
         ]);
 
@@ -36,10 +36,10 @@ class DatabaseSeeder extends Seeder
 
         DB::table('rols')->insert([
             [
-                'rol' => 'A'
+                'nombre' => 'Administrador'
             ],
             [
-                'rol' => 'T'
+                'nombre' => 'Trabajador'
             ]
         ]);
 
@@ -48,8 +48,8 @@ class DatabaseSeeder extends Seeder
                 'nombre'        => 'Alvaro',
                 'apellidos'     => 'González Delgado',
                 'telefono'      => '639266047',
-                'email'         => 'alvgonzadel@gmail.com',
-                'password'      => bcrypt('1234'),
+                'email'         => 'alvaro@alvaro.com',
+                'password'      => bcrypt('123456'),
                 'activo'        => true,
                 'rol_id'        => '1'
             ]
@@ -66,6 +66,8 @@ class DatabaseSeeder extends Seeder
             [
                 'nombre'        => 'ObraPrueba',
                 'direccion'     => 'Calle Obra',
+                'localidad'     => 'Mijas',
+                'provincia'     => 'Málaga',
                 'cliente_id'    => '1'
             ]
         ]);
@@ -80,8 +82,21 @@ class DatabaseSeeder extends Seeder
                 'observaciones'     => 'hola',
                 'obra_id'           => '1',
                 'maquina_id'        => '1',
-                'user_id'           => '1'
-            ]
+                'user_id'           => '1',
+                'estado'            => true
+            ],
+            [
+                'fecha'             => '2022-03-30',
+                'm3'                => '100',
+                'hora_ini'          => '18:09:01',
+                'hora_fin'          => '18:09:01',
+                'desplazamiento'    => '1',
+                'observaciones'     => 'hola',
+                'obra_id'           => '1',
+                'maquina_id'        => '1',
+                'user_id'           => '1',
+                'estado'            => false
+            ],
         ]);
     }
 }

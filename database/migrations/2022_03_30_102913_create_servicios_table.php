@@ -20,10 +20,10 @@ return new class extends Migration
             $table->id();
             $table->date('fecha');
             $table->time('hora_ini');
-            $table->time('hora_fin');
-            $table->string('desplazamiento');/*¿?*/
-            $table->string('m3');
-            $table->text('observaciones');
+            $table->time('hora_fin')->nullable();
+            $table->string('desplazamiento')->nullable();
+            $table->string('m3')->nullable();
+            $table->text('observaciones')->nullable();
             $table->boolean('estado')->default(true);
             $table->timestamps();
 

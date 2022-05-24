@@ -12,6 +12,6 @@ class Maquina extends Model
     use HasFactory;
 
     public function Servicio(){
-        return $this->belongsTo(Servicio::class);
+        return $this->hasMany(Servicio::class);
     }
 }

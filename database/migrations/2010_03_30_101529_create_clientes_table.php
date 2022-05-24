@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('cif', 9);
+            $table->string('cif', 9)->nullable();
             $table->string('telefono', 9);
             $table->string('direccion');
             $table->string('localidad');
             $table->string('provincia');
-            $table->string('codigo postal', 5);
+            $table->string('codigoPostal', 5)->nullable();
             $table->timestamps();
         });
     }

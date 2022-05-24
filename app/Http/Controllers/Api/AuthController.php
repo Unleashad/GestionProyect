@@ -60,12 +60,4 @@ class AuthController extends Controller
 
         return new JsonResponse(['message' => 'Los datos no son validos'], 422);
     }
-
-    public function getAutenticatedUser(){
-
-        $user = Auth::user();
-        $user->rol;
-
-        return new JsonResponse($user);
-    }
 }
