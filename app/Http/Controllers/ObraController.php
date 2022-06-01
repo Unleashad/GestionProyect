@@ -8,16 +8,84 @@ use Illuminate\Http\Request;
 
 class ObraController extends Controller
 {
-    public function getAll(){
-        $data = Obra::with('cliente')->get();
+    public function getObras(Request $request){
+
+        if($request->key){
+            $data = Obra::where('nombre', 'LIKE', '%'.$request->key.'%')->where('activo', true)->with('cliente')->get();
+            return new JsonResponse($data);
+        }
+
+        $data = Obra::where('activo', true)->with('cliente', 'servicio')->get();
 
         return new JsonResponse($data);
     }
 
-    public function getSpecific($id){
+    public function regObra(Request $request){
 
-        $data = Obra::with(['cliente', 'email', 'servicios.maquina', 'servicios.trabajador', 'servicios.albaran'])->findOrFail(1);
+        $request->validate([
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'provincia' => 'required',
+            'localidad' => 'required',
+            'cliente_id' => 'required'
+        ]);
 
-        return new JsonResponse($data);
+        $obra = new Obra();
+        $obra->nombre = $request->nombre;
+        $obra->direccion = $request->direccion;
+        $obra->provincia = $request->provincia;
+        $obra->localidad = $request->localidad;
+        $obra->cliente_id = $request->cliente_id;
+
+        if($obra->save()){
+            return 'Obra guardada correctamente';
+        }
+
+        return 'No se pudo guardar la obra';
+
+    }
+
+    public function updateObra(Request $request){
+
+        $request->validate([
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'localidad' => 'required',
+            'provincia' => 'required',
+            'estado' => 'required',
+            'cliente_id' => 'required'
+        ]);
+
+        $obra = Obra::find($request->id);
+
+        $obra->nombre = $request->nombre;
+        $obra->direccion = $request->direccion;
+        $obra->provincia = $request->provincia;
+        $obra->localidad = $request->localidad;
+        $obra->cliente_id = $request->cliente_id;
+
+        if($request->estado == '1' || $request->estado == 'true'){
+            $obra->estado = 1;
+        }else{
+            $obra->estado = 0;
+        }
+
+        if($obra->save()){
+            return 'Obra actualizada';
+        }
+
+        return 'No se pudo guardar la obra';
+
+    }
+
+    public function deleteObra(Request $request){
+
+        $obra = Obra::find($request->obra_id);
+
+        if($obra->delete()){
+            return 'Obra borrada correctamente';
+        }
+
+        abort(404);
     }
 }

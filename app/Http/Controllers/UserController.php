@@ -37,12 +37,35 @@ class UserController extends Controller{
             'telefono' => 'required'
         ]);
 
+        $user = User::where('email', $request->email)->first();
+
+        if($user){
+            
+            $user->nombre = $request->nombre;
+            $user->apellidos = $request->apellidos;
+            $user->telefono = $request->telefono;
+            $user->email = $request->email;
+            $user->activo = true;
+
+            if($request->rol == "true"){
+                $user->rol_id = 1;
+            }else{
+                $user->rol_id = 2;
+            }
+
+            if($user->save()){
+                return;
+            }
+            
+            abort(404);
+        }
+
         $user = new User();
         $user->nombre = $request->nombre;
         $user->apellidos = $request->apellidos;
         $user->telefono = $request->telefono;
         $user->email = $request->email;
-        $user->password = bcrypt('pa$$word1');
+        $user->password = bcrypt('Pa$$word1');
 
         if($request->rol == "true"){
             $user->rol_id = 1;
@@ -74,9 +97,10 @@ class UserController extends Controller{
         
         if($request->rol == "true"){
             $user->rol_id = 1;
-        }else{
+        }else if($request->rol == "false"){
             $user->rol_id = 2;
         }
+
 
         if($user->save()){
             return 'Usuario actualizado correctamente';
@@ -87,9 +111,15 @@ class UserController extends Controller{
 
     public function deleteUser(Request $request){
 
+        if(Auth::id() == $request->user_id){
+            abort(403);
+        }
+
         $user = User::find($request->user_id);
 
-        if($user->delete()){
+        $user->activo = false;
+
+        if($user->save()){
             return 'Cliente borrado correctamente';
         }
 
@@ -100,12 +130,26 @@ class UserController extends Controller{
         
         $user = User::find($request->user_id);
 
-        $user->password = bcrypt('pa$$word1');
+        $user->password = bcrypt('Pa$$word1');
 
         if($user->save()){
             return 'Usuario actualizado correctamente';
         }
 
         return 'Ocurrieron errores';
+    }
+
+    public function regSign(Request $request){
+
+        $user = User::find($request->user_id);
+
+        $user->firmaUser = $request->firmaUser;
+        $user->primerInicio = 0;
+
+        if($user->save()){
+            return 'Firma seteada correctamente';
+        }
+
+        abort(404);
     }
 }

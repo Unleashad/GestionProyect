@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('albarans', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('numeracion')->unique();
             $table->timestamps();
             $table->foreignIdFor(Servicio::class)->references('id')->on('servicios')->cascadeOnDelete();
         });

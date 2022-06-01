@@ -22,7 +22,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->binary('firmaUser', 50000)->nullable();
             $table->boolean('activo')->default(true);
+            $table->boolean('primerInicio')->default(true);
+            $table->boolean('passwordReset')->default(true);
             $table->rememberToken();
             $table->timestamps();
 

@@ -13,11 +13,11 @@ class ClienteController extends Controller
     public function getClientes(Request $request){
 
         if($request->key){
-            $data = Cliente::where('nombre', 'LIKE', '%'.$request->key.'%')->with('email')->get();
+            $data = Cliente::where('nombre', 'LIKE', '%'.$request->key.'%')->where('activo', true)->with('email')->get();
             return new JsonResponse($data);
         }
 
-        $data = Cliente::with('email')->get();
+        $data = Cliente::where('activo', true)->with('email')->get();
 
         return new JsonResponse($data);
     }
@@ -42,15 +42,18 @@ class ClienteController extends Controller
         $newClient->codigoPostal = $request->codigoPostal;
 
         if($newClient->save()){
-            
+
             $emails = json_decode($request->email);
-            if(count($emails) > 0){
-                
-                foreach ($emails as $email) {
-                    $e = new Email();
-                    $e->correo_cliente = $email->correo_cliente;
-                    $e->cliente_id = $newClient->id;
-                    $e->save();
+
+            if(gettype($emails) == 'array'){
+
+                if(count($emails) > 0){
+                    foreach ($emails as $email) {
+                        $e = new Email();
+                        $e->correo_cliente = $email->correo_cliente;
+                        $e->cliente_id = $newClient->id;
+                        $e->save();
+                    }
                 }
             }
 
@@ -81,6 +84,7 @@ class ClienteController extends Controller
         $cliente->cif = $request->cif;
 
         $cliente->email()->where('cliente_id', $cliente->id)->delete();
+
         $emails = json_decode($request->email);
         if(count($emails) > 0){
             
@@ -103,10 +107,13 @@ class ClienteController extends Controller
 
         $cliente = Cliente::find($request->cliente_id);
 
-        if($cliente->delete()){
+        $cliente->activo = false;
+
+        if($cliente->save()){
+            return $cliente;
             return 'Cliente borrado correctamente';
         }
 
-        return 'Ocurrio un error inesperado';
+        abort(404);
     }
 }

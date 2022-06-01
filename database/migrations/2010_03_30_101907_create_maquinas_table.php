@@ -16,8 +16,9 @@ return new class extends Migration
     {
         Schema::create('maquinas', function (Blueprint $table) {
             $table->id();
-            $table->string('matricula', 7);
+            $table->string('matricula', 7)->unique();
             $table->string('tipo');
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

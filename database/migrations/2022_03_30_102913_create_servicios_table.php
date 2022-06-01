@@ -18,12 +18,16 @@ return new class extends Migration
     {
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
+            $table->string('numeracion');
             $table->date('fecha');
             $table->time('hora_ini');
             $table->time('hora_fin')->nullable();
             $table->string('desplazamiento')->nullable();
             $table->string('m3')->nullable();
             $table->text('observaciones')->nullable();
+            $table->string('nombreFirmante')->nullable();
+            $table->string('dni')->nullable();
+            $table->binary('firmaCliente', 50000)->nullable();
             $table->boolean('estado')->default(true);
             $table->timestamps();
 

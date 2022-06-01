@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('localidad');
             $table->string('provincia');
             $table->boolean('estado')->default(true);
+            $table->boolean('activo')->default(true);
             $table->timestamps();
 
             $table->foreignIdFor(Cliente::class)->references('id')->on('clientes')->cascadeOnDelete();

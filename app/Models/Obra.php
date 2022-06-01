@@ -10,7 +10,7 @@ class Obra extends Model
 {
     use HasFactory;
 
-    protected $hidden = array('id', 'estado', 'cliente_id', 'created_at', 'updated_at');
+    protected $hidden = array('cliente_id', 'created_at', 'updated_at');
 
     protected $fillable = [
 

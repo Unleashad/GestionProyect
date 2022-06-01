@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('localidad');
             $table->string('provincia');
             $table->string('codigoPostal', 5)->nullable();
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }
