@@ -54,7 +54,7 @@ class AlbaranController extends Controller
         $fecha = $this->prepareFecha($servicio->fecha);
         
         $fpdi = new FPDI;
-        $path = Storage::disk('local')->path('public\albaran1.pdf');
+        $path = Storage::disk('local')->path('public/albaran1.pdf');
         $fpdi->setSourceFile($path);
         $template = $fpdi->importPage(1);
         $size = $fpdi->getTemplateSize($template);
