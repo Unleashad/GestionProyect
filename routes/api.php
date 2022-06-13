@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 #region Login
 Route::post('login', [AuthController::class, 'login']);
 Route::post('regSign', [UserController::class, 'regSign']);
+Route::put('updatePassword', [UserController::class, 'updatePassword'])->middleware('auth:sanctum');
 #endregion
 
 #region User

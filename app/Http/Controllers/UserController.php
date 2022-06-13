@@ -131,9 +131,24 @@ class UserController extends Controller{
         $user = User::find($request->user_id);
 
         $user->password = bcrypt('Pa$$word1');
+        $user->passwordReset = 1;
 
         if($user->save()){
             return 'Usuario actualizado correctamente';
+        }
+
+        return 'Ocurrieron errores';
+    }
+
+    public function updatePassword(Request $request){
+
+        $user = User::find($request->user_id);
+
+        $user->password = bcrypt($request->password);
+        $user->passwordReset = 0;
+
+        if($user->save()){
+            return 'Contraseña actualizada correctamente';
         }
 
         return 'Ocurrieron errores';
