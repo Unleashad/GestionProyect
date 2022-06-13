@@ -24,13 +24,13 @@ class AlbaranController extends Controller
         $nameFile = $servicio->obra->nombre.'-'.explode(' ', $servicio->fecha)[0].'.pdf';
         $this->buildPDF($servicio->id)->Output('F', 'storage/TempPdf/'.$nameFile);
         
-        Mail::send('mail', [], function ($message) use($emails){
+        Mail::send('mail', [], function ($message) use($emails, $servicio){
             $files = File::allFiles('storage/TempPdf');
 
             $filePath = $files[0]->getRealPath();
             
             $message->to($emails);
-            $message->subject('Albaran trabajo realizado');
+            $message->subject('Albaran '.$servicio->obra->nombre.' - '.$this->prepareFecha($servicio->fecha));
             $message->attach($filePath);
         });
 
@@ -48,20 +48,10 @@ class AlbaranController extends Controller
 
     private function buildPDF(int $id){
 
-        $meses = 
-        [
-            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
-            'Noviembre', 'Diciembre'
-        ];
-
         $servicio = Servicio::where('id', $id)->get();
         $servicio = $servicio[0];
 
-        $fecha = explode(' ', $servicio->fecha)[0];
-        $fecha = explode('-', $fecha);
-        $fecha = $fecha[2].' de '.$meses[intval($fecha[1]-1)].' de '.$fecha[0];
-
-        // return $servicio;
+        $fecha = $this->prepareFecha($servicio->fecha);
         
         $fpdi = new FPDI;
         $path = Storage::disk('local')->path('public\albaran1.pdf');
@@ -129,5 +119,20 @@ class AlbaranController extends Controller
         }
 
         return $emailsFinal;
+    }
+
+    private function prepareFecha($f){
+
+        $meses = 
+        [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+            'Noviembre', 'Diciembre'
+        ];
+
+        $fecha = explode(' ', $f)[0];
+        $fecha = explode('-', $fecha);
+        $fecha = $fecha[2].' de '.$meses[intval($fecha[1]-1)].' de '.$fecha[0];
+
+        return $fecha;
     }
 }
