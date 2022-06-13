@@ -29,7 +29,8 @@ class AlbaranController extends Controller
 
             $filePath = $files[0]->getRealPath();
             
-            $message->to($emails);
+            // $message->to($emails);
+            $message->bcc($emails);
             $message->subject('Albaran '.$servicio->obra->nombre.' - '.$this->prepareFecha($servicio->fecha));
             $message->attach($filePath);
         });
