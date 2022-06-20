@@ -13,14 +13,14 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('obras_emails', function (Blueprint $table) {
-            $table->foreignIdFor(Obra::class)->references('id')->on('obras')->cascadeOnDelete();
-            $table->foreignIdFor(Email::class)->references('id')->on('emails')->cascadeOnDelete();
-            $table->primary(['obra_id', 'email_id']);
-        });
-    }
+    // public function up()
+    // {
+    //     Schema::create('obras_emails', function (Blueprint $table) {
+    //         $table->foreignIdFor(Obra::class)->references('id')->on('obras')->cascadeOnDelete();
+    //         $table->foreignIdFor(Email::class)->references('id')->on('emails')->cascadeOnDelete();
+    //         $table->primary(['obra_id', 'email_id']);
+    //     });
+    // }
 
     /**
      * Reverse the migrations.
