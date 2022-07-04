@@ -65,27 +65,27 @@ class AlbaranController extends Controller
         $fpdi->SetFont("arial", "", 11);
 
         //Header
-        $fpdi->Text(185, 9, utf8_decode($servicio->numeracion));
-        $fpdi->Text(60, 48.5, utf8_decode($servicio->maquina->matricula));
-        $fpdi->Text(150, 48.5, utf8_decode($servicio->maquina->tipo));
-        $fpdi->Text(40, 61.5, utf8_decode($servicio->trabajador->nombre.' '.$servicio->trabajador->apellidos));
+        $fpdi->Text(175, 44, utf8_decode($servicio->numeracion));
+        $fpdi->Text(60, 56, utf8_decode($servicio->maquina->matricula));
+        $fpdi->Text(150, 56, utf8_decode($servicio->maquina->tipo));
+        $fpdi->Text(40, 69, utf8_decode($servicio->trabajador->nombre.' '.$servicio->trabajador->apellidos));
 
 
         //Main Zone
-        $fpdi->Text(60, 81.5, utf8_decode($servicio->obra->cliente->nombre));
-        $fpdi->Text(155, 81.5, utf8_decode($servicio->obra->cliente->cif));
-        $fpdi->Text(60, 93, utf8_decode($servicio->obra->cliente->localidad.' - '.explode('-', $servicio->obra->cliente->provincia)[1]));
-        $fpdi->Text(155, 93, utf8_decode($servicio->obra->cliente->telefono));
-        $fpdi->Text(60, 104, utf8_decode($servicio->obra->direccion.', '.$servicio->obra->nombre));
-        $fpdi->Text(45, 117, utf8_decode($servicio->observaciones));
+        $fpdi->Text(60, 88.5, utf8_decode($servicio->obra->cliente->nombre));
+        $fpdi->Text(155, 88.5, utf8_decode($servicio->obra->cliente->cif));
+        $fpdi->Text(60, 100, utf8_decode($servicio->obra->cliente->localidad.' - '.explode('-', $servicio->obra->cliente->provincia)[1]));
+        $fpdi->Text(155, 100, utf8_decode($servicio->obra->cliente->telefono));
+        $fpdi->Text(60, 111, utf8_decode($servicio->obra->direccion.', '.$servicio->obra->nombre));
+        $fpdi->Text(45, 114, utf8_decode($servicio->observaciones));
 
 
         //Second Zone
-        $fpdi->Text(50, 148, utf8_decode($servicio->desplazamiento));
-        $fpdi->Text(50, 160, utf8_decode($servicio->m3));
-        $fpdi->Text(60, 171, utf8_decode(explode(' ', $servicio->hora_ini)[1]));
-        $fpdi->Text(150, 171, utf8_decode(explode(' ', $servicio->hora_fin)[1]));
-        $fpdi->Text(60, 182, utf8_decode(round((strtotime($servicio->hora_fin) - strtotime($servicio->hora_ini))/3600)));
+        $fpdi->Text(50, 156, utf8_decode($servicio->desplazamiento));
+        $fpdi->Text(50, 168, utf8_decode($servicio->m3));
+        $fpdi->Text(60, 179, utf8_decode(explode(' ', $servicio->hora_ini)[1]));
+        $fpdi->Text(150, 179, utf8_decode(explode(' ', $servicio->hora_fin)[1]));
+        $fpdi->Text(60, 190, utf8_decode(round((strtotime($servicio->hora_fin) - strtotime($servicio->hora_ini))/3600)));
 
         //Bottom Zone
         $fpdi->SetFont("arial", "", 9);
