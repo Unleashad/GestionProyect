@@ -85,7 +85,7 @@ class AlbaranController extends Controller
         $fpdi->Text(50, 168, utf8_decode($servicio->m3));
         $fpdi->Text(60, 179, utf8_decode(explode(' ', $servicio->hora_ini)[1]));
         $fpdi->Text(150, 179, utf8_decode(explode(' ', $servicio->hora_fin)[1]));
-        $fpdi->Text(60, 190, utf8_decode(round((strtotime($servicio->hora_fin) - strtotime($servicio->hora_ini))/3600)));
+        $fpdi->Text(60, 190, utf8_decode($this->prepareHorasTrabajadas($servicio->hora_ini, $servicio->hora_fin)));
 
         //Bottom Zone
         $fpdi->SetFont("arial", "", 9);
@@ -134,5 +134,27 @@ class AlbaranController extends Controller
         $fecha = $fecha[2].' de '.$meses[intval($fecha[1]-1)].' de '.$fecha[0];
 
         return $fecha;
+    }
+
+    private function prepareHorasTrabajadas($hIni, $hFin){
+
+        $horas = (strtotime($hFin) - strtotime($hIni))/3600;
+
+        $decimales = $this->getDecimal($horas);
+
+        if($decimales == 0.0)
+            return $horas;
+        else if($decimales <= 0.25 || $decimales >= 0.75)
+            return round($horas);
+        else
+            return floor($horas).' horas y 30 minutos';
+
+    }
+
+    private function getDecimal($h){
+        
+        $whole = floor($h);
+
+        return $h - $whole;
     }
 }
