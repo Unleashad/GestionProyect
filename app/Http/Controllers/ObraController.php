@@ -50,8 +50,6 @@ class ObraController extends Controller
         $request->validate([
             'nombre' => 'required',
             'direccion' => 'required',
-            'localidad' => 'required',
-            'provincia' => 'required',
             'estado' => 'required',
             'cliente_id' => 'required'
         ]);
@@ -63,6 +61,9 @@ class ObraController extends Controller
         $obra->provincia = $request->provincia;
         $obra->localidad = $request->localidad;
         $obra->cliente_id = $request->cliente_id;
+        
+        $request->provincia ? $obra->provincia = $request->provincia : $obra->provincia = "";
+        $request->localidad ? $obra->localidad = $request->localidad : $obra->localidad = "";
 
         if($request->estado == '1' || $request->estado == 'true'){
             $obra->estado = 1;
