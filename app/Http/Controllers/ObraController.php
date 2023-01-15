@@ -11,11 +11,11 @@ class ObraController extends Controller
     public function getObras(Request $request){
 
         if($request->key){
-            $data = Obra::where('nombre', 'LIKE', '%'.$request->key.'%')->where('activo', true)->with('cliente')->get();
+            $data = Obra::where('nombre', 'LIKE', '%'.$request->key.'%')->where('activo', true)->with('cliente')->orderBy('nombre', 'asc')->get();
             return new JsonResponse($data);
         }
 
-        $data = Obra::where('activo', true)->with('cliente', 'servicio')->get();
+        $data = Obra::where('activo', true)->with('cliente', 'servicio')->orderBy('nombre', 'asc')->get();
 
         return new JsonResponse($data);
     }
